@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import { auth } from "@clerk/nextjs/server";
-import { log } from "console";
-import { stat } from "fs";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLUDINARY_CLOUD_NAME,
@@ -23,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const formData = await request.formData();
-    const file = formData.get("file") as File;
+    const file = (formData.get("file") as File) || null;
     if (!file) {
       return NextResponse.json(
         { message: "File is required" },
@@ -37,7 +35,7 @@ export async function POST(request: NextRequest) {
     const result = await new Promise<ClaudinaryUploadResult>(
       (resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
-          { folder: "Next-claudinary-videos" },
+          { folder: "Next-claudinary-uploads" },
           (error, result) => {
             if (error) reject(error);
             else resolve(result as ClaudinaryUploadResult);
@@ -50,7 +48,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ publicId: result.public_id }, { status: 200 });
   } catch (error) {
     console.log("Upload image failed", error);
-    return NextResponse.json({message: "UPload image failed"}, {status: 500})
-    
+    return NextResponse.json(
+      { message: "UPload image failed" },
+      { status: 500 }
+    );
   }
 }
