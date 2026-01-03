@@ -8,7 +8,7 @@ const socialFormats = {
   "instagarm Portrait (4:5)": { width: 1080, height: 1350, aspectRatio: "4:5" },
   "Twitter Post (16:19)": { width: 1200, height: 675, aspectRatio: "16:19" },
   "Twitter Header (3:1)": { width: 1500, height: 500, aspectRatio: "3:1" },
-  "FAcebook Cover (205:78)": { width: 820, height: 312, aspectRatio: "205:78" },
+  "Facebook Cover (205:78)": { width: 820, height: 312, aspectRatio: "205:78" },
 };
 
 type socialFormat = keyof typeof socialFormats;
@@ -62,7 +62,7 @@ export default function SocialShare() {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = ` ${selectedFormat
+        link.download = `${selectedFormat
           .replace(/\s+/g, "_")
           .toLowerCase()}.png`;
         document.body.appendChild(link);
@@ -74,7 +74,7 @@ export default function SocialShare() {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
+    <div className="container mx-auto p-4 max-w-4xl ">
       <h1 className="text-3xl font-bold mb-6 text-center">
         Social Media Image Creator
       </h1>
@@ -85,13 +85,13 @@ export default function SocialShare() {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Choose an Image File</span>
+              <span className="label-text mb-2">Choose an Image File:</span>
             </label>
 
             <input
               type="file"
               onChange={handleFileUpload}
-              className="file-input file-input-bordered file-input-primary w-full"
+              className="file-input file-input-primary w-full "
             />
           </div>
 
@@ -106,7 +106,7 @@ export default function SocialShare() {
               <h2 className="card-title mb-4">Select Social Media Format</h2>
               <div className="form-control">
                 <select
-                  className="select select-bordered w-full"
+                  className="select select-bordered w-full bg-black"
                   value={selectedFormat}
                   onChange={(e) =>
                     setSelectedFormat(e.target.value as socialFormat)
@@ -145,7 +145,10 @@ export default function SocialShare() {
               </div>
 
               <div className="card-actions justify-end mt-6">
-                <button className="btn btn-primary" onClick={handleDownload}>
+                <button
+                  className="p-4 bg-blue-600 hover:bg-blue-700 text-white border-none rounded-lg"
+                  onClick={handleDownload}
+                >
                   Download for {selectedFormat}
                 </button>
               </div>
