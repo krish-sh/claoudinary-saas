@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { Fascinate } from "next/font/google";
 
 export default function VideUpload() {
   const [file, setFile] = useState<File | null>(null);
