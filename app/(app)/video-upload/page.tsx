@@ -24,21 +24,23 @@ export default function VideUpload() {
 
     if (file.size > MAX_FILE_SIZE) {
       setError(true);
-      true;
+      setIsUploading(false);
+      return;
     }
 
     setIsUploading(true);
     const formData = new FormData();
+
     formData.append("file", file);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("originalSize", file.size.toString());
 
     try {
-      const response = await axios.post("/api/video/upload", formData);
+      const response = await axios.post("/api/video-uploader", formData);
 
       if (response.status === 200) {
-        route.push("/success");
+        route.push("/home");
       }
     } catch (error) {
       console.log("Error in VideoUpload", error);
@@ -88,7 +90,7 @@ export default function VideUpload() {
         </div>
         <button
           type="submit"
-          className="btn btn-primary btn-outline"
+          className="bg-blue-600 px-1 py-2 rounded-md hover:bg-blue-700"
           disabled={isUploading}
         >
           {isUploading ? "Uploading..." : "Upload Video"}

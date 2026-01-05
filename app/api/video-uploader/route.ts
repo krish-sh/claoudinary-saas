@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (
-      !process.env.NEXT_PUBLIC_CLUDINARY_CLOUD_NAME ||
+      !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
       !process.env.CLOUDINARY_API_KEY ||
       !process.env.CLOUDINARY_API_SECRET
     ) {
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const file = (formData.get("file") as File) || null;
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
-    const originalSize = formData.get("originalsize ") as string;
+    const originalSize = formData.get("originalSize") as string;
 
     if (!file) {
       return NextResponse.json(
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         const uploadStream = cloudinary.uploader.upload_stream(
           {
             resource_type: "video",
-            folder: "Next-claudinary-videos",
+            folder: "Next-cloudinary-videos",
             transformation: [{ quality: "auto", fetch_format: "mp4" }],
           },
           (error, result) => {

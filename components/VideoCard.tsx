@@ -134,7 +134,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
             <span className="text-accent">{compressionPercentage}%</span>
           </div>
           <button
-            className="btn btn-primary btn-sm"
+            className="bg-blue-600 px-2 py-1 rounded-md hover:bg-blue-700"
             onClick={() =>
               onDownload(getFullVideoUrl(video.publicId), video.title)
             }
